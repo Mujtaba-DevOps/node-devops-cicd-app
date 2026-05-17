@@ -1,0 +1,37 @@
+pipeline {
+    agent { label "jack" }
+    
+    stages{
+        
+        stage("Code"){
+            steps{
+                echo "Coding is in Process"
+                git url: "https://github.com/Mujtaba-DevOps/node-devops-cicd-app", branch: "main"
+                echo "Coding done Successfully "
+            }
+        }
+        
+        stage("Build"){
+            steps{
+                echo "Building the Process"
+                sh "docker build -t node-app:latest ."
+                echo "Build Successfully"
+            }
+        }
+        
+        stage("Test"){
+            steps{
+                echo "Testing the Process"
+                echo "Testing done Successfully "
+            }
+        }
+        
+        stage("Deploy"){
+            steps{
+                echo "Deploying is in Process"
+                sh "docker run -d -p 3000:3000 node-app:latest"
+                echo "Deploying done Successfully "
+            }
+        }
+    }    
+}
